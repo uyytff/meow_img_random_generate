@@ -1,0 +1,86 @@
+{
+    "api_url": {
+        "description": "API",
+        "type": "string",
+        "hint": "图片API地址",
+        "default": "https://api.lolicon.app/setu/v2",
+        "obvious_hint": true
+    },
+    "proxy": {
+        "description": "Proxy 服务地址",
+        "type": "string",
+        "hint": "图片反代服务地址，默认 i.pixiv.re",
+        "default": "i.pixiv.re",
+        "obvious_hint": true
+    },
+    "request_delay": {
+        "description": "连续请求 CD",
+        "type": "int",
+        "hint": "普通用户连续请求冷却时间（秒），默认 300",
+        "default": 300,
+        "obvious_hint": true
+    },
+    "request_timeout": {
+        "description": "API 请求超时",
+        "type": "int",
+        "hint": "单个请求超时时间（秒），默认 15",
+        "default": 15,
+        "obvious_hint": true
+    },
+    "max_retries": {
+        "description": "请求失败重试次数",
+        "type": "int",
+        "hint": "0 表示不重试",
+        "default": 3,
+        "obvious_hint": true
+    },
+    "default_r18": {
+        "description": "r18",
+        "type": "int",
+        "hint": "0=全年龄，1=仅r18，2=混合",
+        "default": 0,
+        "obvious_hint": true
+    },
+    "default_tag": {
+        "description": "图片 tag",
+        "type": "string",
+        "hint": "用 | 分隔，留空则不限制",
+        "default": "",
+        "obvious_hint": true
+    },
+    "default_excludeAI": {
+        "description": "排除 AI 作品",
+        "type": "int",
+        "hint": "1=排除，0=包含",
+        "default": 1,
+        "obvious_hint": true
+    },
+    "default_num": {
+        "description": "单次请求数量",
+        "type": "int",
+        "hint": "建议不超过20，discord必须少于10",
+        "default": 1,
+        "obvious_hint": true
+    },
+    "default_size": {
+        "description": "输出大小",
+        "type": "string",
+        "hint": "用 | 分隔（original,regular,small,thumb,mini）",
+        "default": "original",
+        "obvious_hint": true
+    },
+    "fuzzy_search": {
+        "description": "模糊搜索",
+        "type": "int",
+        "hint": "0=关闭，1=开启",
+        "default": 0,
+        "obvious_hint": true
+    },
+    "default_dsc": {
+        "description": "缩写自动转换",
+        "type": "int",
+        "hint": "0=禁用，1=允许",
+        "default": 1,
+        "obvious_hint": true
+    }
+}
