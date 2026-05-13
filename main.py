@@ -9,7 +9,7 @@ from astrbot.api.star import Context, Star, register
 
 @register("meow_img_random", "Sinofuma",
           "喵～用 /img 命令获取随机色图喵～",
-          "2.0")
+          "1.0")
 class SetuPlugin(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
