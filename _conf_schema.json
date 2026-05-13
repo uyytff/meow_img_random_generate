@@ -9,8 +9,8 @@
     "proxy": {
         "description": "Proxy 服务地址",
         "type": "string",
-        "hint": "图片反代服务地址，默认 i.pixiv.re",
-        "default": "i.pixiv.re",
+        "hint": "图片反代服务地址",
+        "default": "i.pixiv.cat",
         "obvious_hint": true
     },
     "request_delay": {
