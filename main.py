@@ -9,7 +9,7 @@ from astrbot.api.star import Context, Star, register
 
 @register("meow~猫图随机助手", "Sinofuma",
           "喵～用 /img 命令获取随机色图喵～",
-          "1.2")
+          "1.1")
 class SetuPlugin(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
@@ -37,16 +37,19 @@ class SetuPlugin(Star):
     def _is_admin(self, event) -> bool:
         return hasattr(event, 'is_admin') and event.is_admin()
 
+    # 修改：增加 override_tags 参数，用于接收用户指定的标签列表
     async def _do_request(self, event, override_tags=None):
         t_start = time.time()
-        tag_list = []
+        tag_list = []          # 最终传给 API 的标签条件列表
         keyword = ""
         use_fuzzy = False
 
         if override_tags is not None:
+            # 用户提供了标签 → 直接使用，忽略配置的默认标签和模糊搜索
             tag_list = override_tags
             use_fuzzy = False
         else:
+            # 没有用户标签 → 使用默认配置
             tag_parsed = self._build_tags(self.tag)
             if self.fuzzy_search and tag_parsed and "|" not in tag_parsed:
                 keyword = tag_parsed
@@ -63,7 +66,7 @@ class SetuPlugin(Star):
             "dsc": str(self.dsc == 1).lower(),
         }
         if tag_list:
-            params["tag"] = tag_list
+            params["tag"] = tag_list   # 直接使用列表，符合 API 二维数组要求
         if keyword:
             params["keyword"] = keyword
         if self.uid:
@@ -140,20 +143,18 @@ class SetuPlugin(Star):
             yield event.plain_result(f"身体还在发烫…再等{remaining:.0f}秒喵")
             return
 
-        # 获取消息内容（可能包含或不包含 /img 前缀）
+        # 解析用户附加参数
         msg = event.message_str.strip()
-        # 兼容两种形式："/img tag1 tag2|tag3" 或 "tag1 tag2|tag3"
-        if msg.lower().startswith('/img'):
-            param_str = msg[4:].strip()   # 去掉 /img，保留后面的部分
-        else:
-            param_str = msg               # 已经是纯参数
-
         user_tags = None
-        if param_str:
-            user_tags = re.split(r'\s+', param_str)
-            user_tags = [t for t in user_tags if t]
-            if not user_tags:
-                user_tags = None
+        m = re.match(r'^/img\s*(.*)', msg, re.IGNORECASE)
+        if m:
+            param_str = m.group(1).strip()
+            if param_str:
+                # 按空白分割，支持 tab、空格等，得到形如 ["tag1|tag2", "tag3", "tag4"]
+                user_tags = re.split(r'\s+', param_str)
+                user_tags = [t for t in user_tags if t]   # 去除空字符串
+                if not user_tags:                         # 全是空白的情况
+                    user_tags = None
 
-        async for result in self._do_request(event, override_tags=user_tags):
-            yield result
+        async for msg in self._do_request(event, override_tags=user_tags):
+            yield msg
