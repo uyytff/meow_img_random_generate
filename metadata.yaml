@@ -1,6 +1,6 @@
 name: meow_img_random
 desc: "喵～用 /img 命令获取随机setu喵～"
 help: "喵~ 发送 /img 即可获取随机setu喵~"
-version: 1.2
+version: 1.1
 author: Sinofuma
 repo: https://github.com/uyytff/test_img_get/tree/Discord
