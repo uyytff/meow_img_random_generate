@@ -7,7 +7,7 @@ from astrbot.api.message_components import Image
 from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 
-@register("猫图随机助手", "Sinofuma",
+@register("meow~猫图随机助手", "Sinofuma",
           "喵～用 /img 命令获取随机色图喵～",
           "1.1")
 class SetuPlugin(Star):
